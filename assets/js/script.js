@@ -29,46 +29,67 @@ var prior_search_div = $('#prior-search')
 var today_div = $('#weather-today')
 var five_day_div = $('#five-day')
 
-var cityName = ""
-var cityInfo
-// hourly, daily, ...
-var excl = "(3)"
+var excl = 'minutely,hourly,alerts'
 
-// URL
-// var url_request = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=${excl}&appid=b5160f6261b60ed2e93a3754a8a382bc`
+var cityName, lat, lon, url_geo_reqeust, url_request, cityInfo
 
-
+/////////////////////////////////////////////////////////////////////
+//                          FUNCTIONS                              //
+/////////////////////////////////////////////////////////////////////
 
 
 function text_to_api() {
-  var lat = url_geo_reqeust.lat
-  var lon = url_geo_reqeust.lon
-  var excl = 'minutely,hourly,alerts'
   cityName = $('#city-name').val()
   
   // get lat long
   // http://api.openweathermap.org/geo/1.0/zip?zip={zip code},{country code}&appid={API key} 
-  var url_geo_reqeust = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=b5160f6261b60ed2e93a3754a8a382bc`
+  var geo_reqeust_url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=b5160f6261b60ed2e93a3754a8a382bc`
+
+  var geo_fetch = fetch(geo_reqeust_url)
+  console.log(geo_fetch)
+
+  var lat = geo_fetch.lat
+  var lon = geo_fetch.lon
 
   // api call for weather data
-  var url_request = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=${excl}&appid=b5160f6261b60ed2e93a3754a8a382bc`
+  // var url_request = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=${excl}&appid=${secretKey}`
+  var url_request = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=${excl}&appid=${secretKey}`
  
 
-  var cityInfo = {'cityName':cityName, 
-                  'lat':lat, 
-                  'lon':lon, 
-                  'url_geo_reqeust':url_geo_reqeust,
-                  'url_request':url_request}
+  cityInfo = {'cityName':cityName, 
+              'lat':lat, 
+              'lon':lon, 
+              'geo_reqeust_url':geo_reqeust_url,
+              'geo_fetch':geo_fetch}
 
   return cityInfo
 }
+
+
+
+// fetch requests
+/* 
+fetch(text_to_api().url_geo_request) (
+  .then(response => {
+
+  })
+)
+
+*/
+
+
+
 
 /////////////////////////////////////////////////////////////////////
 //                             MAIN                                //
 /////////////////////////////////////////////////////////////////////
 
 function main() {
-
+  submit_button.on('click', () => {
+    console.log("clicked")
+    text_to_api()
+    console.log($('#city-name').val())
+  })
 
 }
 main()

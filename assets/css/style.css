@@ -5,6 +5,7 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
   color: white;
+  transition: all 0.2s ease-in-out;
 }
 
 #city-name {
