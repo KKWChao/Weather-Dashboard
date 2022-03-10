@@ -41,26 +41,34 @@ var cityName, lat, lon, url_geo_reqeust, url_request, cityInfo
 
 
 function text_to_api() {
-
+  cityName = $('#city-name').val().toUpperCase()
 
 
   // get lat long
   // http://api.openweathermap.org/geo/1.0/zip?zip={zip code},{country code}&appid={API key} 
   var geo_reqeust_url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=b5160f6261b60ed2e93a3754a8a382bc`
 
-  var geo_fetch = fetch(geo_reqeust_url) 
-  console.log(geo_fetch)
+  fetch(geo_reqeust_url) 
+    .then(function(response) {
+      console.log(response)
+      return response.json();
+    })
+    .then(function(data) {
+      console.log(data)
 
-  var lat = geo_fetch.lat
-  console.log(geo_fetch.lat)
-  var lon = geo_fetch.lon
+      var lat = data.lat
+      console.log(lat, lon)
+      var lon = data.lon
+      
+    })
+  
 
   // api call for weather data
   // var url_request = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=${excl}&appid=${secretKey}`
   // var url_request = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=${excl}&appid=b5160f6261b60ed2e93a3754a8a382bc`
  
   // Saving search to local storage
-  cityName = $('#city-name').val().toUpperCase()
+  
   var stored_city = JSON.parse(localStorage.getItem('city')) || [];
   stored_city.push({'cityName':cityName})
   
@@ -70,8 +78,7 @@ function text_to_api() {
   cityInfo = {'cityName':cityName, 
               'lat':lat, 
               'lon':lon, 
-              'geo_reqeust_url':geo_reqeust_url,
-              'geo_fetch':geo_fetch}
+              'geo_reqeust_url':geo_reqeust_url}
 
   return cityInfo
 }
