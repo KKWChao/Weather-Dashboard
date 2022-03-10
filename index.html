@@ -27,26 +27,69 @@
     <div class="row">
       <section class="col-3">
 
-        <div class="d-grid gap-2 mb-2">
+        <div class="d-grid gap-2 mb-5 border p-2">
           <label for="cityName" class="text-center">Search for a City:</label>
           <input type="text" name="cityName" class="text-center" id="city-name">
           <button type="button" class="btn btn-info text-dark" id="searcher">Search</button>
         </div>
 
         <!-- prior search -->
-        <div class="" id="prior-search">
-          
+        <div class="d-grid gap-3 p-2" id="prior-search">
+
+          <!-- TEMP BUTTON PLACEMENT FOR PRIOR SEARCHES -->
+          <button type="button" class="btn btn-info text-dark" id="">Search</button>
+          <button type="button" class="btn btn-info text-dark" id="">Search</button>
+          <button type="button" class="btn btn-info text-dark" id="">Search</button>
+          <button type="button" class="btn btn-info text-dark" id="">Search</button>
         </div>
       </section>
 
 
       <!-- Display Info -->
-      <section class="col-9 min-w-100 border p-2 min-w-100">
+      <section class="col-9 min-w-100 border p-2 min-w-100 d-flex flex-column justify-content-around" id="weather-display">
+
+        <!-- Display Current Weather Info for Target City -->
         <div class="border p-1" id="weather-today">
-          asdf
+          <!-- Include Temp, Time, Weather, Humidity, UV, Wind, Pricipitation -->
         </div>
-        <div class="p-1" id="five-day">
-          set
+        <!-- Display 5 Day Forecast -->
+        <div class="d-flex justify-content-between" id="five-day">
+
+          <!-- +1 Day -->
+          <div class="col-2 border">
+            <h3 class="text-center">a</h3>
+            <img src="" alt="">
+            <p></p>
+          </div>
+
+          <!-- +2 Day -->
+          <div class="col-2 border">
+            <h3 class="text-center">b</h3>
+            <img src="" alt="">
+            <p></p>
+          </div>
+
+          <!-- +3 Day -->
+          <div class="col-2 border">
+            <h3 class="text-center">c</h3>
+            <img src="" alt="">
+            <p></p>
+          </div>
+
+          <!-- +4 Day -->
+          <div class="col-2 border">
+            <h3 class="text-center">d</h3>
+            <img src="" alt="">
+            <p></p>
+          </div>
+
+          <!-- +5 Day -->
+          <div class="col-2 border">
+            <h3 class="text-center">e</h3>
+            <img src="" alt="">
+            <p></p>
+          </div>
+      
         </div>
       </section>
 

@@ -11,3 +11,19 @@
 #city-name {
   color: black;
 }
+
+#prior-search {
+  height: 10em;
+}
+
+#weather-display {
+  height: 30em;
+}
+
+#weather-today {
+  height: 15em;
+}
+
+#five-day {
+  height: 12em;
+}

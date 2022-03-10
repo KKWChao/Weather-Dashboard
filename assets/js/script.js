@@ -50,17 +50,12 @@ function text_to_api() {
 
   fetch(geo_reqeust_url) 
     .then(function(response) {
-      console.log(response)
-      return response.json();
+      var lat = response.lat
+      var lon = response.lon
+      console.log(lat, lon, response)
+      return [response.json(), lat, lon];
     })
-    .then(function(data) {
-      console.log(data)
-
-      var lat = data.lat
-      console.log(lat, lon)
-      var lon = data.lon
-      
-    })
+    
   
 
   // api call for weather data
