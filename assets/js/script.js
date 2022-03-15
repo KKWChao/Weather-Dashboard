@@ -6,10 +6,10 @@
 Tasks:
 -[X] get input from user
 -[X] set search to local storage
--[_] create getLocalStorage for preload
+-[X] create getLocalStorage for preload
 -[_] list prior searches
 -[X] api call for lat/long position
--[_] input lat/long to api call for weather
+-[X] input lat/long to api call for weather
 -[_] update weather divs
 
 Optional:
@@ -62,6 +62,7 @@ function getGeo() {
     .then((data) => {
       cityInfo.cityName = cityInput;
       cityInfo.lat = data[0].lat.toFixed(2);
+
       cityInfo.lon = data[0].lon.toFixed(2);
       url_request = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityInfo.lat}&lon=${cityInfo.lon}&units=${units}&exclude=${excl}&appid=${myKey}`;
     })
@@ -81,7 +82,6 @@ function setLocal() {
 }
 
 // get localStorage function 
-
 function getLocal() {
   var get_local = JSON.parse(localStorage.getItem("city"))
 }
@@ -93,13 +93,14 @@ function weatherCall() {
       return response.json();
     })
     .then(data => {
-      console.log(4)
       displayWeather(data);
     });
 }
-
+// function to display data on html
 function displayWeather(data) {
-  // function to display data on html
+  $('#weather-display').removeClass('d-none')
+
+  // today's weather
   $("#today-high-temp").text(`High Temp: ${data.daily[0].temp.max} C`);
   $("#today-low-temp").text(`Low Temp: ${data.daily[0].temp.min} C`);
   $("#today-feels-like").text(`Feels Like: ${data.daily[0].feels_like.day} C`);
@@ -108,8 +109,20 @@ function displayWeather(data) {
   $('#today-uv').text(`UV: ${data.daily[0].uvi}`)
   $('#today-wind').text(`Wind: ${data.daily[0].wind_speed}`)
 
+  // future weather
+  $('#future-one h4').text(getDayFromUnix(data.daily[1].dt))
+  $('#future-two h4').text(getDayFromUnix(data.daily[2].dt))
+  $('#future-three h4').text(getDayFromUnix(data.daily[3].dt))
+  $('#future-four h4').text(getDayFromUnix(data.daily[4].dt))
+  $('#future-five h4').text(getDayFromUnix(data.daily[5].dt))
 }
 
+// Date Converter
+function getDayFromUnix(unix) {
+  var temp = new Date(unix * 1000)
+  var utcString = temp.toUTCString().slice(0,3)
+  return utcString
+}
 
 /////////////////////////////////////////////////////////////////////
 //                             MAIN                                //
@@ -118,7 +131,6 @@ function displayWeather(data) {
 function main() {
   submit_button.on("click", () => {
     getGeo();
-    // document.getElementById('tester').innerHTML += " doodoo"
   });
 }
 main();
