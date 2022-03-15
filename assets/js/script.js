@@ -30,69 +30,82 @@ var today_div = $("#weather-today");
 var five_day_div = $("#five-day");
 
 var excl = "minutely,hourly,alerts";
-
-var cityName, url_geo_reqeust, url_request, weatherData;
+var units = "metric"
+var cityInput, url_geo_reqeust, url_request, weatherData, geo_reqeust_url;
 
 var cityInfo = {
-  cityName: cityName,
+  cityName: "",
   lat: 0,
   lon: 0,
-  geo_reqeust_url: "",
 };
 
 /////////////////////////////////////////////////////////////////////
 //                          FUNCTIONS                              //
 /////////////////////////////////////////////////////////////////////
 
-// function for geo position and saving
+// storage function
+
+// function for geo position
 function getGeo() {
+  
   const myKey = "b5160f6261b60ed2e93a3754a8a382bc";
-  var stored_city = JSON.parse(localStorage.getItem("city")) || [];
-  cityName = $("#city-name").val().toUpperCase();
-  cityInfo = {
-    cityName: cityName,
-    lat: 0,
-    lon: 0,
-    geo_reqeust_url: "",
-  };
+
+  cityInput = $("#city-name").val().toUpperCase();
 
   // get lat long
   // http://api.openweathermap.org/geo/1.0/zip?zip={zip code},{country code}&appid={API key}
-  cityInfo.geo_reqeust_url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${myKey}`;
+  geo_reqeust_url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityInput}&appid=${myKey}`;
 
-  fetch(cityInfo.geo_reqeust_url)
+  fetch(geo_reqeust_url)
     .then((response) => response.json())
+
     .then((data) => {
-      cityInfo.lat = data[0].lat;
-      cityInfo.lon = data[0].lon;
-      url_request = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityInfo.lat}&lon=${cityInfo.lon}&exclude=${excl}&appid=${myKey}`;
-      return cityInfo;
-    });
+      cityInfo.cityName = cityInput;
+      cityInfo.lat = data[0].lat.toFixed(2);
+      cityInfo.lon = data[0].lon.toFixed(2);
+      url_request = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityInfo.lat}&lon=${cityInfo.lon}&units=${units}&exclude=${excl}&appid=${myKey}`;
+    })
+    .then(() => {
+      setLocal()
+    })
+    .then(()=>{
+      weatherCall()
+    })
+}
 
-  // fetching weather data
-
+// save to local storage function
+function setLocal() {
+  var stored_city = JSON.parse(localStorage.getItem("city")) || [];
   stored_city.push(cityInfo);
-
   localStorage.setItem("city", JSON.stringify(stored_city));
 }
 
+// get localStorage function 
+
+function getLocal() {
+  var get_local = JSON.parse(localStorage.getItem("city"))
+}
+
+// fetching weather data
 function weatherCall() {
   fetch(url_request)
-  .then(response => {
-    
-    console.log(response)
-    console.log(typeof(response))
-    return response
-  })
-  .then(data => {
-    console.log(data.json());
-    weatherData=data;
-  });
+    .then((response) => {
+      return response.json();
+    })
+    .then(data => {
+      console.log(4)
+      displayWeather(data);
+    });
 }
 
-function loadPriorSearch() {
-
+function displayWeather(data) {
+  // function to display data on html
+  console.log(data);
+  console.log(data.current);
+  console.log(data.current.clouds);
+  $("#tester").text(`High Temp: ${data.current.temp} C`);
 }
+
 
 /////////////////////////////////////////////////////////////////////
 //                             MAIN                                //
@@ -100,10 +113,8 @@ function loadPriorSearch() {
 
 function main() {
   submit_button.on("click", () => {
-    console.log("clicked");
     getGeo();
-    weatherCall();
-    console.log($("#city-name").val());
+    // document.getElementById('tester').innerHTML += " doodoo"
   });
 }
 main();

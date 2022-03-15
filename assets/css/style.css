@@ -13,17 +13,17 @@
 }
 
 #prior-search {
-  height: 10em;
+  min-height: 10em;
 }
 
 #weather-display {
-  height: 30em;
+  min-height: 30em;
 }
 
 #weather-today {
-  height: 15em;
+  min-height: 15em;
 }
 
 #five-day {
-  height: 12em;
+  min-height: 12em;
 }
