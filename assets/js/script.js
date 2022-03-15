@@ -100,10 +100,14 @@ function weatherCall() {
 
 function displayWeather(data) {
   // function to display data on html
-  console.log(data);
-  console.log(data.current);
-  console.log(data.current.clouds);
-  $("#tester").text(`High Temp: ${data.current.temp} C`);
+  $("#today-high-temp").text(`High Temp: ${data.daily[0].temp.max} C`);
+  $("#today-low-temp").text(`Low Temp: ${data.daily[0].temp.min} C`);
+  $("#today-feels-like").text(`Feels Like: ${data.daily[0].feels_like.day} C`);
+  $("#today-pressure").text(`Pressure: ${data.daily[0].pressure} C`);
+  $("#today-humidity").text(`Humidity: ${data.daily[0].humidity} C`);
+  $('#today-uv').text(`UV: ${data.daily[0].uvi}`)
+  $('#today-wind').text(`Wind: ${data.daily[0].wind_speed}`)
+
 }
 
 
