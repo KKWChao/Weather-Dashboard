@@ -101,20 +101,33 @@ function displayWeather(data) {
   $('#weather-display').removeClass('d-none')
 
   // today's weather
-  $("#today-high-temp").text(`High Temp: ${data.daily[0].temp.max} C`);
-  $("#today-low-temp").text(`Low Temp: ${data.daily[0].temp.min} C`);
-  $("#today-feels-like").text(`Feels Like: ${data.daily[0].feels_like.day} C`);
-  $("#today-pressure").text(`Pressure: ${data.daily[0].pressure} C`);
-  $("#today-humidity").text(`Humidity: ${data.daily[0].humidity} C`);
+  $("#today-high-temp").text(`High Temp: ${data.daily[0].temp.max.toFixed(0)} C`);
+  $("#today-low-temp").text(`Low Temp: ${data.daily[0].temp.min.toFixed(0)} C`);
+  $("#today-feels-like").text(`Feels Like: ${data.daily[0].feels_like.day.toFixed(0)} C`);
+  $("#today-pressure").text(`Pressure: ${data.daily[0].pressure.toFixed(0)} hPa`);
+  $("#today-humidity").text(`Humidity: ${data.daily[0].humidity.toFixed(0)} %`);
   $('#today-uv').text(`UV: ${data.daily[0].uvi}`)
-  $('#today-wind').text(`Wind: ${data.daily[0].wind_speed}`)
+  uvColor(data.daily[0].uvi)
+  $('#today-wind').text(`Wind: ${data.daily[0].wind_speed} m/s`)
 
   // future weather
   $('#future-one h4').text(getDayFromUnix(data.daily[1].dt))
+  $('#future-one p').text(data.daily[1].temp.day.toFixed(0) + " C")
+
   $('#future-two h4').text(getDayFromUnix(data.daily[2].dt))
+  $('#future-two p').text(data.daily[2].temp.day.toFixed(0) + " C")
+
   $('#future-three h4').text(getDayFromUnix(data.daily[3].dt))
+  $('#future-three p').text(data.daily[3].temp.day.toFixed(0) + " C")
+
   $('#future-four h4').text(getDayFromUnix(data.daily[4].dt))
+  $('#future-four p').text(data.daily[4].temp.day.toFixed(0) + " C")
+
   $('#future-five h4').text(getDayFromUnix(data.daily[5].dt))
+  $('#future-five p').text(data.daily[5].temp.day.toFixed(0) + " C")
+
+  // better to just implement a for loop ... I will add that later
+
 }
 
 // Date Converter
@@ -122,6 +135,19 @@ function getDayFromUnix(unix) {
   var temp = new Date(unix * 1000)
   var utcString = temp.toUTCString().slice(0,3)
   return utcString
+}
+
+// UV Color indicator
+function uvColor(inp) {
+  if (inp <= 3) {
+    $('#today-uv').addClass('bg-info')
+  } else if (inp > 3 && inp <= 5) {
+    $('#today-uv').addClass('bg-success')
+  } else if (inp > 5 && inp <= 8) {
+    $('#today-uv').addClass('bg-warning')
+  } else if (inp > 8) {
+    $('#today-uv').addClass('bg-danger')
+  }
 }
 
 /////////////////////////////////////////////////////////////////////
