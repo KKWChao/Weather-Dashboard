@@ -1,3 +1,5 @@
+/* ROOT */
+
 * {
   font-family:'Courier New', Courier, monospace;
   margin: 0;
@@ -22,7 +24,6 @@
 
 #weather-today {
   min-height: 15em;
-
 }
 
 #today-uv {
@@ -33,6 +34,9 @@
   min-height: 12em;
 }
 
+.weather-display {
+  font-size: large;
+}
 
 /* Image positioning */
 div {
