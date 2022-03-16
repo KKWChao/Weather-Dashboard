@@ -1,6 +1,7 @@
 # WEATHER DASHBOARD
 A weather dashboard to display current weather information and 5 day forecast
 
+##### screenshot of app
 <img src="" alt="">
 
 ### CREATED WITH:

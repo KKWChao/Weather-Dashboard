@@ -39,6 +39,7 @@ var cityInfo = {
   lon: 0,
 };
 
+
 /////////////////////////////////////////////////////////////////////
 //                          FUNCTIONS                              //
 /////////////////////////////////////////////////////////////////////
@@ -65,6 +66,7 @@ function getGeo() {
 
       cityInfo.lon = data[0].lon.toFixed(2);
       url_request = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityInfo.lat}&lon=${cityInfo.lon}&units=${units}&exclude=${excl}&appid=${myKey}`;
+      console.log(url_request)
     })
     .then(() => {
       setLocal()
@@ -100,6 +102,11 @@ function weatherCall() {
 function displayWeather(data) {
   $('#weather-display').removeClass('d-none')
 
+  // weather background
+  var weather_icon = data.current.weather[0].icon
+  var weather_icons = `http://openweathermap.org/img/wn/${weather_icon}@2x.png`
+  $('#weather-today').css({'background-image':`url(${weather_icons})`,
+                            'background-repeat': 'no-repeat'})
   // today's weather
   $("#today-high-temp").text(`High Temp: ${data.daily[0].temp.max.toFixed(0)} C`);
   $("#today-low-temp").text(`Low Temp: ${data.daily[0].temp.min.toFixed(0)} C`);
@@ -108,7 +115,7 @@ function displayWeather(data) {
   $("#today-humidity").text(`Humidity: ${data.daily[0].humidity.toFixed(0)} %`);
   $('#today-uv').text(`UV: ${data.daily[0].uvi}`)
   uvColor(data.daily[0].uvi)
-  $('#today-wind').text(`Wind: ${data.daily[0].wind_speed} m/s`)
+  $('#today-wind').text(`Wind: ${data.daily[0].wind_deg} Degrees, ${data.daily[0].wind_speed} m/s`)
 
   // future weather
   $('#future-one h4').text(getDayFromUnix(data.daily[1].dt))
