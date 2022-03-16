@@ -22,6 +22,7 @@
 
 #weather-today {
   min-height: 15em;
+
 }
 
 #today-uv {
@@ -30,5 +31,19 @@
 
 #five-day {
   min-height: 12em;
+}
+
+
+/* Image positioning */
+div {
+  background-position: center;
+}
+
+#weather-today {
+  background-size: 25%;
+}
+
+.col-2 .border .d-flex .flex-column .justify-content-between .text-center {
+  background-size: 50%;
 }
 

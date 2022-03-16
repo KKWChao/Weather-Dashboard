@@ -102,11 +102,9 @@ function weatherCall() {
 function displayWeather(data) {
   $('#weather-display').removeClass('d-none')
 
-  // weather background
-  var weather_icon = data.current.weather[0].icon
-  var weather_icons = `http://openweathermap.org/img/wn/${weather_icon}@2x.png`
-  $('#weather-today').css({'background-image':`url(${weather_icons})`,
-                            'background-repeat': 'no-repeat'})
+  // weather background function
+  setWeatherImage(data, 0, $('#weather-today'));
+
   // today's weather
   $("#today-high-temp").text(`High Temp: ${data.daily[0].temp.max.toFixed(0)} C`);
   $("#today-low-temp").text(`Low Temp: ${data.daily[0].temp.min.toFixed(0)} C`);
@@ -120,19 +118,23 @@ function displayWeather(data) {
   // future weather
   $('#future-one h4').text(getDayFromUnix(data.daily[1].dt))
   $('#future-one p').text(data.daily[1].temp.day.toFixed(0) + " C")
+  setWeatherImage(data, 1, $('#future-one'))
 
   $('#future-two h4').text(getDayFromUnix(data.daily[2].dt))
   $('#future-two p').text(data.daily[2].temp.day.toFixed(0) + " C")
+  setWeatherImage(data, 2, $('#future-two'))
 
   $('#future-three h4').text(getDayFromUnix(data.daily[3].dt))
   $('#future-three p').text(data.daily[3].temp.day.toFixed(0) + " C")
+  setWeatherImage(data, 3, $('#future-three'))
 
   $('#future-four h4').text(getDayFromUnix(data.daily[4].dt))
   $('#future-four p').text(data.daily[4].temp.day.toFixed(0) + " C")
+  setWeatherImage(data, 4, $('#future-four'))
 
   $('#future-five h4').text(getDayFromUnix(data.daily[5].dt))
   $('#future-five p').text(data.daily[5].temp.day.toFixed(0) + " C")
-
+  setWeatherImage(data, 5, $('#future-five'))
   // better to just implement a for loop ... I will add that later
 
 }
@@ -142,6 +144,15 @@ function getDayFromUnix(unix) {
   var temp = new Date(unix * 1000)
   var utcString = temp.toUTCString().slice(0,3)
   return utcString
+}
+
+// setting image
+function setWeatherImage(data, i, hmtl_id) {
+  var weather_icon = data.daily[i].weather[0].icon
+  var weather_icons = `http://openweathermap.org/img/wn/${weather_icon}@2x.png`
+  hmtl_id.css({'background-image':`url(${weather_icons})`,
+                'background-repeat': 'no-repeat',
+                'background-posiiton':'center top'})
 }
 
 // UV Color indicator
