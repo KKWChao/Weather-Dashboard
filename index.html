@@ -14,7 +14,7 @@
   <header class="d-flex justify-content-between m-2 align-items-center">
     <h1 class="text-white">KC</h1>
     <nav>
-      <a href="" class="text-decoration-none text-white">Github</a>
+      <a href="https://github.com/KKWChao/Weather-Dashboard" class="text-decoration-none text-white">Github</a>
     </nav>
   </header>
 
@@ -46,54 +46,56 @@
 
 
       <!-- Display Info -->
-      <section class="col-9 min-w-100 border p-2 min-w-100 d-flex flex-column justify-content-around d-none" id="weather-display"> 
-
+      <section class="col-9 min-w-100 border p-2 min-w-100 d-flex flex-column justify-content-around" id="weather-display"> 
+        <!-- d-none -->
         <!-- Display Current Weather Info for Target City -->
-        <div class="border p-1 m-1" id="weather-today">
+        <div class="border p-4 m-1 d-flex flex-column justify-content-around" id="weather-today">
           <!-- Include Temp, Time, Weather, Humidity, UV, Wind, Pricipitation -->
+          <!-- set background images to reflect day weather -->
           <h3 class="" id="test">Weather Label</h3>
           <p id="today-high-temp">High Temp</p>
           <p id="today-low-temp">Low Temp</p>
-          <p id="today-feels-like"></p>
+          <p id="today-feels-like">Feels Like</p>
           <p id="today-pressure">Pressure</p>
           <p id="today-humidity">Humidity</p>
           <p id="today-uv">UV Index</p>
           <p id="today-wind">Wind Speed</p>
+
         </div>
         <!-- Display 5 Day Forecast -->
         <div class="d-flex justify-content-between m-1" id="five-day">
 
           <!-- +1 Day -->
           <div class="col-2 border d-flex flex-column justify-content-between text-center" id="future-one">
-            <h4>a</h4>
+            <h4></h4>
             <img src="" alt="">
-            <p>test</p>
+            <p></p>
           </div>
 
           <!-- +2 Day -->
           <div class="col-2 border d-flex flex-column justify-content-between text-center" id="future-two">
-            <h4>b</h4>
+            <h4></h4>
             <img src="" alt="">
             <p></p>
           </div>
 
           <!-- +3 Day -->
           <div class="col-2 border d-flex flex-column justify-content-between text-center" id="future-three">
-            <h4>c</h4>
+            <h4></h4>
             <img src="" alt="">
             <p></p>
           </div>
 
           <!-- +4 Day -->
           <div class="col-2 border d-flex flex-column justify-content-between text-center" id="future-four">
-            <h4>d</h4>
+            <h4></h4>
             <img src="" alt="">
             <p></p>
           </div>
 
           <!-- +5 Day -->
           <div class="col-2 border d-flex flex-column justify-content-between text-center" id="future-five">
-            <h4>e</h4>
+            <h4></h4>
             <img src="" alt="">
             <p></p>
           </div>
